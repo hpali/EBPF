@@ -1,0 +1,67 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    <f:loadBundle basename="messages" var="msg" />
+
+    <ui:define name="content">
+        #{selectExercises.doQuery()}
+        <div >
+            <p:panel>
+                <p:fragment autoUpdate="true">
+                    <h:form>
+                        <p:link
+                            outcome="pf_worksheet"
+                            id="link"
+                            value="Worksheet (#{manageExercisesList.sumExercises}) db."  />
+                        <p:dataScroller  value="#{selectExercises.exercises}" var="exercise" chunkSize="10">
+                            <f:facet name="header">
+                                #{msg['scroll']}
+                            </f:facet>
+
+                            <h:panelGrid columns="2" 
+                                         style="width:100%"
+                                         styleClass="ui-listview-inset ui-corner-all"
+                                         >
+                                <p:graphicImage  url="#{exercise.url} " height="auto" width="auto" id="image"/> 
+
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" styleClass="ui-listview-inset ui-corner-all" >
+                                        <h:outputText value="#{msg['year']}" />
+                                        <h:outputText value="#{exercise.year}" style="font-weight: bold"/>
+
+                                        <h:outputText value="#{msg['age']}" />
+                                        <h:outputText value="#{exercise.age}" style="font-weight: bold"/>
+
+                                        <h:outputText value="#{msg['language']}" />
+                                        <h:outputText value="#{exercise.language}" style="font-weight: bold"/>
+                                        <h:outputText value="#{msg['number']}" />
+                                        <h:outputText value="#{exercise.number}" style="font-weight: bold"/>
+
+                                    </h:panelGrid>
+
+                                </p:outputPanel>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="1" styleClass="ui-listview-inset ui-corner-all" >
+                                        <p:commandButton 
+                                            action="#{manageExercisesList.add(exercise)}"
+                                            update="@form:link"
+                                            title="#{msg['addworksheet']}">
+                                        </p:commandButton>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+
+                        </p:dataScroller>
+
+                    </h:form>
+                </p:fragment>
+            </p:panel>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

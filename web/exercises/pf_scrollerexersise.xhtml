@@ -1,0 +1,96 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                >
+    <f:loadBundle basename="messages" var="msg" />
+
+    <ui:define name="content">
+        #{selectExercises.doQuery()}
+        <div >
+            <p:panel>
+                <p:fragment autoUpdate="true">
+                    <h:form>
+                        <p:link
+                            outcome="pf_worksheet"
+                            id="link"
+                            value="Worksheet (#{manageExercisesList.sumExercises}) db."  />
+                        <p:dataScroller  value="#{selectExercises.exercises}" var="exercise" chunkSize="10">
+                            <f:facet name="header">
+                                #{msg['scroll']}
+                            </f:facet>
+                            <div class="ui-g">
+                                <p:outputPanel>
+                                    <div class="ui-g-9">
+                                        <p:graphicImage  url="#{exercise.url} " height="auto" width="auto" id="image"/> 
+                                    </div>
+                                </p:outputPanel>
+                                <div class="ui-g-3">
+
+                                    <div class="ui-g">
+                                        <div class="ui-g-6">
+                                            <p:outputPanel>
+                                                <h:outputText value="#{msg['year']}" />
+                                                <h:outputText value="#{exercise.year}" style="font-weight: bold"/>
+                                            </p:outputPanel>
+                                        </div>
+                                        <div class="ui-g-6">
+                                            <p:outputPanel>
+                                                <p:outputPanel>
+                                                    <h:outputText value="#{msg['age']}" />
+                                                </p:outputPanel>
+                                                <p:outputPanel>
+                                                    <h:outputText value="#{exercise.age}" style="font-weight: bold"/>
+                                                </p:outputPanel>
+                                            </p:outputPanel>
+
+                                        </div>
+                                    </div>
+                                    <div class="ui-g">
+                                        <div class="ui-g-6">
+                                            <p:outputPanel>
+                                                <p:outputPanel>
+                                                    <h:outputText value="#{msg['language']}" />
+                                                </p:outputPanel>
+                                                <p:outputPanel>
+                                                    <h:outputText value="#{exercise.language}" style="font-weight: bold"/>
+                                                </p:outputPanel>
+                                            </p:outputPanel>
+                                        </div>
+                                        <div class="ui-g-6">
+                                            <p:outputPanel>
+                                                <p:outputPanel>
+                                                    <h:outputText value="#{msg['number']}" />
+                                                </p:outputPanel>
+                                                <p:outputPanel>
+                                                    <h:outputText value="#{exercise.number}" style="font-weight: bold"/>
+                                                </p:outputPanel>
+                                            </p:outputPanel>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ui-g">
+                                <div class="ui-g-12">
+                                    <p:commandButton 
+                                        action="#{manageExercisesList.add(exercise)}"
+                                        update="@form:link"
+                                        title="#{msg['addworksheet']}">
+                                    </p:commandButton>
+                                </div>
+                            </div>
+
+
+                        </p:dataScroller>
+
+                    </h:form>
+                </p:fragment>
+            </p:panel>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

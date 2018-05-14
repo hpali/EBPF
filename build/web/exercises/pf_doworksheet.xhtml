@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <f:loadBundle basename="messages" var="msg" />
+
+    <ui:define name="content">
+        <div >
+            <p:panel>
+                <p:fragment autoUpdate="true">
+                    <h:form id="form">
+                        <div class="ui-fluid">
+                            <h:panelGrid columns="1"  styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-12">
+                                <p:imageSwitch effect="wipe"
+                                               widgetVar="switcher"
+                                               id="manuelSwitcher"
+                                               slideshowAuto="false">
+                                    <ui:repeat value="#{manageExercisesList.exercises}"
+                                               var="exercise"
+                                               id="manuelSwitcherImages">
+                                        <p:graphicImage  url="#{exercise.url} " height="auto" width="auto" id="image"/>
+                                    </ui:repeat>
+                                </p:imageSwitch>
+
+                                <p:selectOneRadio class="answerId" value="#{answer.answer}"  layout="responsive" columns="6">
+                                    <f:selectItems value="#{answer.answers}"/>
+                                </p:selectOneRadio>
+
+                                <h:panelGrid columns="3" style="text-align:center" columns="3" >
+                                    <p:commandButton
+                                        value="#{msg['back']}"
+                                        onclick= "PF('switcher').switchTo(#{manageExercisesList.niki(false)});"
+                                        icon="ui-icon-circle-triangle-w"
+                                        id="prev"
+                                        update=":form:next"
+
+                                        iconPos="left"
+                                        />
+                                    <p:commandButton
+                                        value="#{msg['ok']}"
+                                        id="ok"
+                                        actionListener="#{manageExercisesList.actionOK}"
+                                        />
+                                    <p:commandButton
+                                        value="#{msg['next']}"
+                                        onclick= "PF('switcher').switchTo(#{manageExercisesList.niki(true)});"
+                                        icon="ui-icon-circle-triangle-e"
+                                        id="next"
+                                        iconPos="right"
+                                        update=":form:next"
+                                        />
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </div >
+                    </h:form>
+                </p:fragment>
+            </p:panel>
+
+        </div>
+    </ui:define>
+
+</ui:composition>
+

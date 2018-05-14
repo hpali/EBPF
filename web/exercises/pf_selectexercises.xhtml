@@ -1,0 +1,64 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <f:loadBundle basename="messages" var="msg" />
+
+    <ui:define name="content">
+        <div >
+            <p:panel>
+                <p:fragment autoUpdate="true">
+                    <h:form>
+                        <div class="ui-fluid">
+                            <p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid" styleClass="ui-panelgrid-blank">
+
+                                <p:outputLabel  value="#{msg['year']}"/>
+                                <p:selectOneMenu  value="#{selectExercises.year}" label="Year" >
+                                    <f:selectItems value="#{selectExercises.years}" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel  value="#{msg['level']}" />
+                                <p:selectOneRadio id="chkbox"  value="#{selectExercises.level}" layout="responsive" columns="3">
+                                    <f:selectItems value="#{selectExercises.levels}" var="level" itemLabel="#{level}" itemValue="#{level}" />
+                                </p:selectOneRadio>
+
+                                <p:outputLabel  value="#{msg['language']}"/>
+                                <p:selectOneMenu id="language" value="#{selectExercises.language}" label="Language"  
+                                                 filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                    <f:selectItems value="#{selectExercises.languages}" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="#{msg['age']}"/>
+                                <p:selectOneMenu id="age" value="#{selectExercises.age}" label="Age"  
+                                                 filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                                    <f:selectItems value="#{selectExercises.ages}" />
+                                </p:selectOneMenu>
+
+                            </p:panelGrid>
+
+                        </div>
+                        <div class="ui-fluid">
+                            <p:panelGrid columns="4" 
+                                         layout="grid" 
+                                         columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-3,ui-grid-col-3" 
+                                         styleClass="ui-panelgrid-blank" >            
+                                <p:commandButton value="#{msg['submit']}"
+                                                 action="pf_scrollerexersise"   
+                                                 style="margin-top:10px;" />
+                                <p:cache></p:cache>
+                                <p:cache></p:cache>
+                                <p:commandButton value="#{msg['cancel']}" 
+                                                 action="index"  
+                                                 style="margin-top:10px;" />
+                            </p:panelGrid>
+                        </div>
+                    </h:form>
+                </p:fragment>
+            </p:panel>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

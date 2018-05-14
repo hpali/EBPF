@@ -1,0 +1,50 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <f:loadBundle basename="messages" var="msg" />
+
+    <ui:define name="content">
+        <div >
+            <p:panel>
+                <p:fragment autoUpdate="true">
+                    <h:form>
+                        <div class="ui-fluid">
+                            <p:panelGrid columns="3" columnClasses="ui-grid-col-2, ui-grid-col-8,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank">
+
+                                <p:outputLabel  value="#{msg['files']}"/>
+                                <p:inputText value="#{generateXml.urlDir}"  id="input"/>
+                                <p:commandButton value="..." action="#{fileupload.saveFile}" />
+
+                                <p:outputLabel  value="#{msg['savein']}"/>
+                                <p:inputText value="#{generateXml.placeOfXml}" />
+                                <p:commandButton value="..." action="#{generateXml.setExercisesPath}" />
+                            </p:panelGrid>
+
+                        </div>
+
+                        <div class="ui-fluid">
+                            <p:panelGrid columns="4" 
+                                         layout="grid" 
+                                         columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-3,ui-grid-col-3" 
+                                         styleClass="ui-panelgrid-blank" >            
+                                <p:commandButton value="#{msg['submit']}" 
+                                                 action="#{generateXml.doXmlFileAbsPath}"  
+                                                 style="margin-top:10px;" />
+                                <p:cache></p:cache>
+                                <p:cache></p:cache>
+                                <p:commandButton value="#{msg['cancel']}"
+                                                 action="index"  
+                                                 style="margin-top:10px;" />
+                            </p:panelGrid>
+                        </div>
+                    </h:form>
+                </p:fragment>
+            </p:panel>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

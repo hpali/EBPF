@@ -1,0 +1,81 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <f:loadBundle basename="messages" var="msg" />
+
+    <ui:define name="content">
+        <div >
+            <p:panel>
+                <p:fragment autoUpdate="true">
+
+                    <h:form>
+                        <div class="row" >
+                            <div class="col-xs-12">
+
+                                <p:imageSwitch effect="wipe"
+                                               widgetVar="switcher"
+                                               id="manuelSwitcher"
+                                               slideshowAuto="false">
+                                    <ui:repeat value="#{manageExercisesList.exercises}"
+                                               var="exercise"
+                                               id="manuelSwitcherImages">
+                                        <p:graphicImage  url="#{exercise.url} " height="auto" width="auto" id="image"/>
+                                    </ui:repeat>
+                                </p:imageSwitch>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <p:selectOneRadio class="answerId" value="#{answer.answer}"  layout="responsive" columns="6">
+                                <f:selectItems value="#{answer.answers}"/>
+                            </p:selectOneRadio>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <p:commandButton
+                                    value="#{msg['back']}"
+                                    onclick="if (manageExercisesList.isback()) {
+                                                PF('switcher').previous()();
+                                            }"
+
+                                    icon="ui-icon-circle-triangle-w"
+                                    id="prev"
+                                    iconPos="left"
+                                    />
+
+                            </div>
+                            <div class="col-xs-4">
+                                <p:commandButton
+                                    value="#{msg['ok']}"
+                                    id="ok"
+                                    actionListener="#{manageExercisesList.actionOK}"
+                                    />
+                            </div>
+                            <div class="col-xs-4">
+                                <p:commandButton
+                                    value="#{msg['next']}"
+                                    onclick="if (manageExercisesList.isnext()) {
+                                                PF('switcher').next();
+                                            }"
+
+                                    icon="ui-icon-circle-triangle-e"
+                                    id="next"
+                                    iconPos="right"
+
+                                    />
+                            </div>
+                        </div>
+                    </h:form>
+
+                </p:fragment>
+            </p:panel>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

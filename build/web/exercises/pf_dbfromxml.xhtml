@@ -1,0 +1,40 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <f:loadBundle basename="messages" var="msg" />
+
+    <ui:define name="content">
+        <div >
+            <p:panel>
+                <p:fragment autoUpdate="true">
+                    <h:form>
+                        <div class="ui-fluid">
+                            <p:panelGrid columns="3"
+                                         columnClasses="ui-grid-col-2, ui-grid-col-6,ui-grid-col-5" 
+                                         layout="grid" 
+                                         styleClass="ui-panelgrid-blank">
+                                <p:outputLabel  value="#{msg['choosexml']}"/>
+                                <p:inputText value="#{dBfromXml.xmlpath}"  />
+                                <p:commandButton action="#{dBfromXml.chooseXml}"  value="...." />
+                            </p:panelGrid>
+                            <p:panelGrid columns="2" 
+                                         layout="grid" 
+                                         styleClass="ui-panelgrid-blank" >            
+                                <p:commandButton  action="#{dBfromXml.saveListToDB}"  
+                                                  value="#{msg['xmlsavetodb']}" />
+
+
+                                <p:commandButton value="#{msg['cancel']}" action="index" /><br/><br/>
+                            </p:panelGrid>
+                        </div>
+                    </h:form>
+                </p:fragment>
+            </p:panel>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

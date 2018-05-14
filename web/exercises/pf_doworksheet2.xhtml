@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
+    <f:loadBundle basename="messages" var="msg" />
+    <h:head>
+        <title>Facelet Title</title>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" http-equiv="X-UA-Conpatible" />
+        <title>JSF Bootstrap Example</title>
+        <h:outputStylesheet library="resources" name="css/main.css" />
+
+    </h:head>
+    <h:body>
+        <h:form prependId="false">
+            <f:facet name="last">
+                <h:outputStylesheet library="resources" name="css/main.css" />
+            </f:facet>
+            <div class="ui-g">
+                <div class="ui-g-1"></div>
+                <div class="ui-g-10">
+
+                    <p:imageSwitch effect="wipe"
+                                   widgetVar="switcher"
+                                   id="manuelSwitcher"
+                                   slideshowAuto="false">
+                        <ui:repeat value="#{manageExercisesList.exercises}"
+                                   var="exercise"
+                                   id="manuelSwitcherImages">
+                            <p:graphicImage  url="#{exercise.url} " height="auto" width="auto" id="image"/>
+                        </ui:repeat>
+                    </p:imageSwitch>
+                </div>
+                <div class="ui-g-1"></div>
+            </div>
+
+            <p:selectOneRadio class="answerId" value="#{answer.answer}"  layout="responsive" columns="6">
+                <f:selectItems value="#{answer.answers}"/>
+            </p:selectOneRadio>
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <p:commandButton
+                        value="#{msg['back']}"
+                        onclick="if (#{manageExercisesList.isback()}) {
+                                    PF('switcher').previous();
+                                }"
+                        icon="ui-icon-circle-triangle-w"
+                        id="prev"
+                        iconPos="left"
+                        />
+                </div>
+
+                <div class="ui-g-4">
+                    <p:commandButton
+                        value="#{msg['ok']}"
+                        id="worksheetok"
+                        actionListener="#{manageExercisesList.actionOK}"
+                        />
+                </div>
+
+
+                <div class="ui-g-4">
+                    <p:commandButton
+                        value="#{msg['next']}"
+                        onclick="if (#{manageExercisesList.isnext()}) {
+                                    PF('switcher').next();
+                                }"
+                        icon="ui-icon-circle-triangle-e"
+                        id="next"
+                        iconPos="right"
+                        />
+
+                </div>
+            </div>
+
+        </h:form>
+
+    </h:body>
+</html>
+
